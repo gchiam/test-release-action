@@ -37,7 +37,6 @@ jobs:
       uses: heinrichreimer/github-changelog-generator-action@v2.1.1
       with:
         futureRelease:  ${{ github.event.inputs.tag_name }}
-        sinceTag: ${{ steps.latest_version.outputs.latest_tag }}
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Release
