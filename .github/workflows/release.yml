@@ -1,0 +1,45 @@
+# This is a basic workflow that is manually triggered
+
+name: Create release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release Tag (See https://semver.org/#semantic-versioning-200)'
+        required: true
+      release_name:
+        description: 'Brief description of your release'
+        required: true
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Validate release tag
+      uses: actions/semver-validation-action@0.0.6
+      with:
+        version: ${{ github.event.inputs.tag_name }}
+
+    - name: Generate Changelog
+      id: generate_changelog
+      uses: heinrichreimer/github-changelog-generator-action@v2.1.1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        unreleased-only: true
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.event.inputs.tag_name }}
+        release_name: Release ${{ github.event.inputs.release_name }}
+        body: ${{ steps.generate_changelog.output.changelog }}
+        draft: false
+        prerelease: false
