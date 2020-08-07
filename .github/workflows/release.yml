@@ -36,9 +36,8 @@ jobs:
       id: generate_changelog
       uses: heinrichreimer/github-changelog-generator-action@v2.1.1
       with:
-        pullRequests: true
+        sinceTag: ${{ steps.latest_version.output.latest_tag }}
         token: ${{ secrets.GITHUB_TOKEN }}
-        unreleasedOnly: true
 
     - name: Create Release
       id: create_release
