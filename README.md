@@ -1,1 +1,1 @@
-# test-release-action
+# Testing release with Github Action
