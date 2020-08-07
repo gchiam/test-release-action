@@ -25,10 +25,18 @@ jobs:
       with:
         version: ${{ github.event.inputs.tag_name }}
 
+    - name: Get Latest Release
+        id: latest_version
+        uses: abatilo/release-info-action@v1.1.0
+        with:
+          owner: abatilo
+          repo: release-info-action
+
     - name: Generate Changelog
       id: generate_changelog
       uses: heinrichreimer/github-changelog-generator-action@v2.1.1
       with:
+        sinceTag: ${{ steps.latest_version.latest_tag }}
         token: ${{ secrets.GITHUB_TOKEN }}
         unreleased-only: true
 
