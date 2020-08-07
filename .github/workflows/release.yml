@@ -26,11 +26,11 @@ jobs:
         version: ${{ github.event.inputs.tag_name }}
 
     - name: Get Latest Release
-        id: latest_version
-        uses: abatilo/release-info-action@v1.1.0
-        with:
-          owner: abatilo
-          repo: release-info-action
+      id: latest_version
+      uses: abatilo/release-info-action@v1.1.0
+      with:
+        owner: abatilo
+        repo: release-info-action
 
     - name: Generate Changelog
       id: generate_changelog
