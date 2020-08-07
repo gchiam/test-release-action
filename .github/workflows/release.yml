@@ -36,10 +36,11 @@ jobs:
       id: generate_changelog
       uses: heinrichreimer/github-changelog-generator-action@v2.1.1
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         user: gchiam
         project: test-release-action
+        sinceTag: ${{ github.event.inputs.tag_name }}
         futureRelease:  ${{ github.event.inputs.tag_name }}
-        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Release
       id: create_release
