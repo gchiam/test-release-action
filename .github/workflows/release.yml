@@ -36,7 +36,7 @@ jobs:
       id: generate_changelog
       uses: heinrichreimer/github-changelog-generator-action@v2.1.1
       with:
-        user: zendesk
+        user: gchiam
         project: test-release-action
         futureRelease:  ${{ github.event.inputs.tag_name }}
         token: ${{ secrets.GITHUB_TOKEN }}
