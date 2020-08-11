@@ -18,40 +18,43 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Validate release tag
-      uses: rubenesp87/semver-validation-action@0.0.6
-      with:
-        version: ${{ github.event.inputs.tag_name }}
+      - run: |
+          git fetch --unshallow
 
-    - name: Get Latest Release
-      id: latest_version
-      uses: abatilo/release-info-action@v1.1.0
-      with:
-        owner: gchiam
-        repo: test-release-action
+      - name: Validate release tag
+        uses: rubenesp87/semver-validation-action@0.0.6
+        with:
+          version: ${{ github.event.inputs.tag_name }}
 
-    - name: Generate Changelog
-      id: generate_changelog
-      uses: heinrichreimer/github-changelog-generator-action@v2.1.1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        user: gchiam
-        project: test-release-action
-        # sinceTag: ${{ steps.latest_version.outputs.latest_tag }}
-        futureRelease:  ${{ github.event.inputs.tag_name }}
-        unreleasedOnly: true
+      - name: Get Latest Release
+        id: latest_version
+        uses: abatilo/release-info-action@v1.1.0
+        with:
+          owner: gchiam
+          repo: test-release-action
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.event.inputs.tag_name }}
-        release_name: Release ${{ github.event.inputs.release_name }}
-        body_path: ./CHANGELOG.md
-        draft: false
-        prerelease: false
+      - name: Generate Changelog
+        id: generate_changelog
+        uses: heinrichreimer/github-changelog-generator-action@v2.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          user: gchiam
+          project: test-release-action
+          # sinceTag: ${{ steps.latest_version.outputs.latest_tag }}
+          futureRelease:  ${{ github.event.inputs.tag_name }}
+          unreleasedOnly: true
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.tag_name }}
+          release_name: Release ${{ github.event.inputs.release_name }}
+          body_path: ./CHANGELOG.md
+          draft: false
+          prerelease: false
