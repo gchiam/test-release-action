@@ -45,6 +45,7 @@ jobs:
           project: test-release-action
           # sinceTag: ${{ steps.latest_version.outputs.latest_tag }}
           futureRelease:  ${{ github.event.inputs.tag_name }}
+          pullRequests: true
           unreleasedOnly: true
 
       - name: Create Release
