@@ -32,6 +32,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           futureRelease:  ${{ github.event.inputs.tag_name }}
           author: true
+          compareLink: true
           issues: true
           issuesWoLabels: true
           prWoLabels: true
