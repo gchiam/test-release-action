@@ -39,9 +39,9 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         user: gchiam
         project: test-release-action
-        pullRequests: true
-        sinceTag: ${{ steps.latest_version.outputs.latest_tag }}
+        # sinceTag: ${{ steps.latest_version.outputs.latest_tag }}
         futureRelease:  ${{ github.event.inputs.tag_name }}
+        unreleasedOnly: true
 
     - name: Create Release
       id: create_release
