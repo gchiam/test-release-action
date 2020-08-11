@@ -29,13 +29,6 @@ jobs:
         with:
           version: ${{ github.event.inputs.tag_name }}
 
-      - name: Get Latest Release
-        id: latest_version
-        uses: abatilo/release-info-action@v1.1.0
-        with:
-          owner: gchiam
-          repo: test-release-action
-
       - name: Generate Changelog
         id: generate_changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
@@ -43,7 +36,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           user: gchiam
           project: test-release-action
-          #sinceTag: ${{ steps.latest_version.outputs.latest_tag }}
           futureRelease:  ${{ github.event.inputs.tag_name }}
           author: true
           issues: true
