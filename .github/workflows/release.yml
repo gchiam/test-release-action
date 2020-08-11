@@ -35,6 +35,7 @@ jobs:
           project: test-release-action
           futureRelease:  ${{ github.event.inputs.tag_name }}
           author: true
+          compareLink: true
           issues: true
           issuesWoLabels: true
           prWoLabels: true
