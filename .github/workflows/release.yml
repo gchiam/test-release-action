@@ -48,6 +48,7 @@ jobs:
           author: true
           issues: true
           issuesWoLabels: true
+          prWoLabels: true
           pullRequests: true
           unreleased: true
           unreleasedOnly: true
